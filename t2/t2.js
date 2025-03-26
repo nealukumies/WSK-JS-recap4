@@ -792,7 +792,13 @@ for (const restaurant of restaurants) {
     p4.innerHTML = restaurant.phone;
     const p5 = document.createElement('p');
     p5.innerHTML = restaurant.company;
-    dialog.append(h3, p, p2, p3, p4, p5);
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('class', 'close-btn');
+    closeButton.innerHTML = 'Close';
+    closeButton.addEventListener('click', () => {
+      dialog.close();
+    });
+    dialog.append(h3, p, p2, p3, p4, p5, closeButton);
   });
 
   dialog.addEventListener('close', () => {
