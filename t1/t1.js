@@ -27,33 +27,59 @@ const toDoList = [
   },
 ];
 
-const ul = document.querySelector('ul');
-for (let i = 0; i < toDoList.length; i++) {
+function addTaskToDom(index) {
   const li = document.createElement('li');
-  const taskId = 'todo-' + (i + 1);
+  const taskId = 'todo-' + (index + 1);
   const input = document.createElement('input');
   input.setAttribute('type', 'checkbox');
   input.setAttribute('id', taskId);
-  if (toDoList[i].completed) {
+  if (toDoList[index].completed) {
     input.checked = true;
   }
   li.appendChild(input);
   li.addEventListener('change', () => {
-    toDoList[i].completed = !toDoList[i].completed;
+    toDoList[index].completed = !toDoList[index].completed;
     console.log(toDoList);
   });
+
   const label = document.createElement('label');
   label.setAttribute('for', taskId);
-  label.innerHTML = toDoList[i].task;
+  label.innerHTML = toDoList[index].task;
   li.appendChild(label);
 
   const button = document.createElement('button');
   button.innerHTML = 'Del';
   button.addEventListener('click', () => {
     ul.removeChild(li);
-    toDoList.splice(i, 1);
+    toDoList.splice(index, 1);
     console.log(toDoList);
   });
   li.appendChild(button);
   ul.appendChild(li);
 }
+
+const ul = document.querySelector('ul');
+for (let i = 0; i < toDoList.length; i++) {
+  addTaskToDom(i);
+}
+
+const addButton = document.querySelector('.add-btn');
+const modal = document.querySelector('dialog');
+addButton.addEventListener('click', () => {
+  modal.showModal();
+});
+
+const form = document.querySelector('form');
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  let input = document.querySelector('form input');
+  const inputText = input.value.trim();
+  if (inputText) {
+    const index = toDoList.length;
+    toDoList.push({id: index + 1, task: inputText, completed: false});
+    addTaskToDom(index);
+    console.log(toDoList);
+  }
+  input.value = '';
+  modal.close();
+});
