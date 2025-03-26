@@ -53,15 +53,21 @@ function addTaskToDom(index) {
     ul.removeChild(li);
     toDoList.splice(index, 1);
     console.log(toDoList);
+    renderToDoList();
   });
   li.appendChild(button);
   ul.appendChild(li);
 }
 
-const ul = document.querySelector('ul');
-for (let i = 0; i < toDoList.length; i++) {
-  addTaskToDom(i);
+function renderToDoList() {
+  ul.innerHTML = '';
+  for (let i = 0; i < toDoList.length; i++) {
+    addTaskToDom(i);
+  }
 }
+
+const ul = document.querySelector('ul');
+renderToDoList();
 
 const addButton = document.querySelector('.add-btn');
 const modal = document.querySelector('dialog');
