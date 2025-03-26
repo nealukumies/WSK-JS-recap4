@@ -1,5 +1,5 @@
 // array for todo list
-const todoList = [
+const toDoList = [
   {
     id: 1,
     task: 'Learn HTML',
@@ -27,4 +27,34 @@ const todoList = [
   },
 ];
 
-// add your code here
+const ul = document.querySelector('ul');
+for (let i = 0; i < toDoList.length; i++) {
+  const li = document.createElement('li');
+  const taskId = 'todo-' + (i + 1);
+  const input = document.createElement('input');
+  input.setAttribute('type', 'checkbox');
+  input.setAttribute('id', taskId);
+  if (toDoList[i].completed) {
+    input.checked = true;
+  }
+  li.appendChild(input);
+  li.addEventListener('change', () => {
+    toDoList[i].completed = !toDoList[i].completed;
+    console.log(toDoList);
+  });
+  const label = document.createElement('label');
+  label.setAttribute('for', taskId);
+  label.innerHTML = toDoList[i].task;
+  li.appendChild(label);
+
+  const button = document.createElement('button');
+  button.innerHTML = 'Delete ToDo-item';
+  button.setAttribute('class', 'delete-btn');
+  button.addEventListener('click', () => {
+    ul.removeChild(li);
+    toDoList.splice(i, 1);
+    console.log(toDoList);
+  });
+  li.appendChild(button);
+  ul.appendChild(li);
+}
