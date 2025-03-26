@@ -777,15 +777,28 @@ const dialog = document.querySelector('dialog');
 for (const restaurant of restaurants) {
   const tr = document.createElement('tr');
   tr.addEventListener('click', function () {
-    for (const elem of document.querySelectorAll('.highlight')) {
-      elem.classList.remove('highlight');
-    }
     tr.classList.add('highlight');
     dialog.innerHTML = '';
     dialog.showModal();
     const h3 = document.createElement('h3');
     h3.innerHTML = restaurant.name;
-    dialog.appendChild(h3);
+    const p = document.createElement('p');
+    p.innerHTML = restaurant.address;
+    const p2 = document.createElement('p');
+    p2.innerHTML = restaurant.postalCode;
+    const p3 = document.createElement('p');
+    p3.innerHTML = restaurant.city;
+    const p4 = document.createElement('p');
+    p4.innerHTML = restaurant.phone;
+    const p5 = document.createElement('p');
+    p5.innerHTML = restaurant.company;
+    dialog.append(h3, p, p2, p3, p4, p5);
+  });
+
+  dialog.addEventListener('close', () => {
+    for (const elem of document.querySelectorAll('.highlight')) {
+      elem.classList.remove('highlight');
+    }
   });
 
   const nametd = document.createElement('td');
@@ -794,6 +807,7 @@ for (const restaurant of restaurants) {
   const addresstd = document.createElement('td');
   addresstd.innerHTML = restaurant.address;
   tr.appendChild(addresstd);
+
   const citytd = document.createElement('td');
   citytd.innerHTML = restaurant.city;
   tr.appendChild(citytd);
