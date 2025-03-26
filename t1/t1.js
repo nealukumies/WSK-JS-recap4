@@ -48,8 +48,7 @@ for (let i = 0; i < toDoList.length; i++) {
   li.appendChild(label);
 
   const button = document.createElement('button');
-  button.innerHTML = 'Delete ToDo-item';
-  button.setAttribute('class', 'delete-btn');
+  button.innerHTML = 'Del';
   button.addEventListener('click', () => {
     ul.removeChild(li);
     toDoList.splice(i, 1);
